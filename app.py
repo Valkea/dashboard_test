@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
@@ -10,8 +10,8 @@ def index():
 
 @app.route("/dashboard")
 def dashboard():
-    return "Ici c'est le dashboard"
+    return render_template('dashboard.html')
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True)  # TODO supprimer le mode debug
