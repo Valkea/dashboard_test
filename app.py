@@ -5,10 +5,13 @@ from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
+with open('openweather.key', 'r') as f:
+    OPEN_WEATHER_KEY = f.readline()
+
 
 @app.route("/")
 def index():
-    return "Hello World!"
+    return f"Hello World! {OPEN_WEATHER_KEY}"
 
 
 @app.route("/dashboard")
