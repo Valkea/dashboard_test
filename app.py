@@ -24,7 +24,7 @@ with open("newsapi.key", "r") as f:
     NEWS_API_KEY = f.readline().strip()
 
 NEWS_API_URL = (
-    "https://api.openweathermap.org/data/2.5/forecast?lat=48.883587&lon=2.333779&appid="
+    "https://newsapi.org/v2/top-headlines?country=fr&apiKey="
     + NEWS_API_KEY
 )
 
