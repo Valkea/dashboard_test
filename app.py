@@ -6,6 +6,9 @@ import json
 
 from flask import Flask, render_template, jsonify
 
+from functions import extract_keywords
+
+
 app = Flask(__name__)
 
 
@@ -87,7 +90,19 @@ def news():
             500,
         )
 
-    return jsonify(content)
+    keywords, articles = extract_keywords(content["articles"])
+
+    return jsonify(
+        {
+            "status": "ok",
+            "data": {
+                "keywords": keywords[
+                    :100
+                ],  # On retourne uniquement les 100 premiers mots
+                "articles": articles,
+            },
+        }
+    )
 
 
 if __name__ == "__main__":
