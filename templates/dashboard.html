@@ -3,8 +3,17 @@
 	<head>
 		<meta charset='utf-8' />
 		<title>Mon Dashboard</title>
+
+		<script src="https://d3js.org/d3.v3.min.js"></script>
+    		<script src="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.min.js"></script>
+    		<script src="https://code.highcharts.com/highcharts.js"></script>
+    		<script src="https://code.highcharts.com/modules/wordcloud.js"></script>
+
+    		<link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/novus/nvd3/v1.8.1/build/nv.d3.css">
+
 		<script src="/static/dashboard.js"></script>
 		<link rel="stylesheet" type="text/css" href="/static/dashboard.css" />
+
 	</head>
 	<body>
 		<div class='content'>
@@ -17,8 +26,17 @@
 
 			<main>
 				<div class="chartContainer">
-					<div id="actu" class="chart"></div>
-					<div id="meteo" class="chart"></div>
+					<div id="actu" class="chart">
+						<div id="nuage"></div>
+						<div id="listeArticles">
+							<text class="chartTitle">Articles</text>
+							<div id="tableauArticles"></div>
+						</div>
+					</div>
+					<div id="meteo" class="chart">
+						<text class="chartTitle">Prévision de température</text>
+						<svg></svg>
+					</div>
 				</div>
 			</main>
 		</div>
