@@ -23,10 +23,7 @@ METEO_API_URL = (
 with open("newsapi.key", "r") as f:
     NEWS_API_KEY = f.readline().strip()
 
-NEWS_API_URL = (
-    "https://newsapi.org/v2/top-headlines?country=fr&apiKey="
-    + NEWS_API_KEY
-)
+NEWS_API_URL = "https://newsapi.org/v2/top-headlines?country=fr&apiKey=" + NEWS_API_KEY
 
 
 # --- DEFINE ROUTES ---
@@ -69,6 +66,28 @@ def meteo():
         data.append([datetime, temperature])
 
     return jsonify({"status": "ok", "data": data})
+
+
+@app.route("/api/news")
+def news():
+
+    response = requests.get(NEWS_API_URL)
+    content = json.loads(response.content.decode("utf-8"))
+
+    if response.status_code != 200:
+        return (
+            jsonify(
+                {
+                    "status": "error",
+                    "message": "La requête à l'API news n'a pas fonctionné. Voici le message renvoyé par l'API : {}".format(
+                        content["message"]
+                    ),
+                }
+            ),
+            500,
+        )
+
+    return jsonify(content)
 
 
 if __name__ == "__main__":
