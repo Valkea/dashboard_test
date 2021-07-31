@@ -1,6 +1,9 @@
 #! usr/bin/etc python3
 # coding=utf-8
 
+import requests
+import json
+
 from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
@@ -21,13 +24,31 @@ def dashboard():
 
 @app.route("/api/meteo")
 def meteo():
-    dictionnaire = {
-        "type": "Prévision de temperature",
-        "valeurs": [24, 25, 22, 20, 18, 26, 30],
-        "unite": "Degrés Celcius",
-    }
 
-    return jsonify(dictionnaire)
+    response = requests.get(METEO_API_URL)
+    content = json.loads(response.content.decode("utf-8"))
+
+    if response.status_code != 200:
+        return (
+            jsonify(
+                {
+                    "status": "error",
+                    "message": "La requête à l'API météo n'a pas fonctionné. Voici le message renvoyé par l'API : {}".format(
+                        content["message"]
+                    ),
+                }
+            ),
+            500,
+        )
+
+    data = []  # On initialise une liste vide
+    for prev in content["list"]:
+        datetime = prev["dt"] * 1000
+        temperature = prev["main"]["temp"] - 273.15  # Conversion de Kelvin en °c
+        temperature = round(temperature, 2)
+        data.append([datetime, temperature])
+
+    return jsonify({"status": "ok", "data": data})
 
 
 if __name__ == "__main__":
