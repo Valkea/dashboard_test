@@ -3,7 +3,8 @@
 	<head>
 		<meta charset='utf-8' />
 		<title>Mon Dashboard</title>
-		<script src="static/dashboard.js"></script>
+		<script src="/static/dashboard.js"></script>
+		<link rel="stylesheet" type="text/css" href="/static/dashboard.css" />
 	</head>
 	<body>
 		<div class='content'>
@@ -15,7 +16,10 @@
 			</header>
 
 			<main>
-				<div class="chartContainer"></div>
+				<div class="chartContainer">
+					<div id="actu" class="chart"></div>
+					<div id="meteo" class="chart"></div>
+				</div>
 			</main>
 		</div>
 	</body>
