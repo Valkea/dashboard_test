@@ -8,13 +8,33 @@ from flask import Flask, render_template, jsonify
 
 app = Flask(__name__)
 
-with open('openweather.key', 'r') as f:
-    OPEN_WEATHER_KEY = f.readline()
+
+# --- LOAD API KEYS ---
+
+with open("openweather.key", "r") as f:
+    OPEN_WEATHER_KEY = f.readline().strip()
+
+METEO_API_URL = (
+    "https://api.openweathermap.org/data/2.5/forecast?lat=48.883587&lon=2.333779&appid="
+    + OPEN_WEATHER_KEY
+)
+
+
+with open("newsapi.key", "r") as f:
+    NEWS_API_KEY = f.readline().strip()
+
+NEWS_API_URL = (
+    "https://api.openweathermap.org/data/2.5/forecast?lat=48.883587&lon=2.333779&appid="
+    + NEWS_API_KEY
+)
+
+
+# --- DEFINE ROUTES ---
 
 
 @app.route("/")
 def index():
-    return f"Hello World! {OPEN_WEATHER_KEY}"
+    return f"Hello World! {METEO_API_URL}\n{NEWS_API_URL}"
 
 
 @app.route("/dashboard")
